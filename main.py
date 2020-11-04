@@ -2,13 +2,13 @@ from igraph import *
 import math
 from collections import deque
 
-C = [ 'C1', 'C2', 'C3', 'C4', 'C5']
-L = [['C4','C2'],['C1','C3','C5'], ['C2'], ['C1'], ['C2']]
+C = [ 'C1', 'C2', 'C3', 'C4', 'C5', 'C6']
+L = [['C4','C2'],['C1','C3','C5'], ['C2'], ['C1'], ['C2','C6'], ['C5']]
 
 def main():
     N = generateGraph(C,L)
-    source = 'C1'
-    destination = 'C5'
+    source = 'C4'
+    destination = 'C6'
     p = shortestPath(N, source, destination)
     print(p)
 
@@ -23,7 +23,7 @@ def getPath(source,destination,Dv,Av):
     currentPosition = Av[destination]
     path = deque([])
     path.append(destination)
-    while currentPosition != source:
+    while currentPosition != source and currentPosition != None:
         path.appendleft(currentPosition)
         currentPosition = Av[currentPosition]
     else:
@@ -45,7 +45,6 @@ def deepSearch(N, s):
     #preparando a fila de visitas
     Q = deque([])
     Q.append(s)
-    #Q.pop(s)
     #propagação das visitas
     while len(Q) > 0:
         u = Q.popleft()
