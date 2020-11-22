@@ -1,13 +1,19 @@
-from igraph import *
 import math
 from collections import deque
 
 C = [ 'C1', 'C2', 'C3', 'C4', 'C5', 'C6']
-L = [['C4','C2'],['C1','C3','C5'], ['C2'], ['C1'], ['C2','C6'], ['C5']]
+L = [ ['C1', 'C4'], ['C1', 'C2'],
+      ['C2', 'C1'], ['C2', 'C3'], ['C2', 'C5'], 
+      ['C3', 'C2'],
+      ['C4', 'C1'], ['C4','C6'],
+      ['C5', 'C2'], ['C5','C6'],
+      ['C6', 'C5'], ['C6', 'C4']]
+
+#L = [['C4','C2'],['C1','C3','C5'], ['C2'], ['C1'], ['C2','C6'], ['C5']]
 
 def main():
     N = generateGraph(C,L)
-    source = 'C4'
+    source = 'C1'
     destination = 'C6'
     p = shortestPath(N, source, destination)
     print(p)
@@ -57,20 +63,15 @@ def deepSearch(N, s):
     return Dv,Av
 
 def generateGraph(C,L):
-    g = Graph()
-    g.add_vertices(len(C))
-    matrixGraph = []
-    N = [None]*len(C)
-    for i, vI in enumerate(C):
-        tempConections = []
-        if(len(L[i]) > 0):
-            for j, vJ  in L[i]:
-                matrixGraph.append( (i,int(vJ)-1) )
-                tempConections.append(int(vJ)-1)
-        N[i] = tempConections
-    g.add_edges(matrixGraph)
-    plot(g, vertex_label=C, vertex_color="white")
-    return N
+    graph = []
+    for i in C:
+        lstTmp = []
+        for j in L:
+            if( i == j[0] ):
+                lstTmp.append(int(j[1][1])-1)
+        graph.append(lstTmp)
+    print(graph)
+    return graph
             
 
 if __name__ == "__main__":
