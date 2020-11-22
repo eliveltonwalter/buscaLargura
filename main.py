@@ -70,7 +70,6 @@ def generateGraph(C,L):
             if( i == j[0] ):
                 lstTmp.append(int(j[1][1])-1)
         graph.append(lstTmp)
-    print(graph)
     return graph
             
 
